@@ -1,8 +1,11 @@
 const express = require('express')
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const serverless = require("serverless-http");
 
 const app = express();
+const router = express.Router();
+
 const port = 3000;
 
 // Where we will keep books
@@ -18,11 +21,11 @@ app.post('/book', (req, res) => {
     // We will be coding here
 });
 
-app.get('/', (req, res) => {
+router.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.post('/', (req, res) => {
+router.post('/', (req, res) => {
      // Read variables sent via POST from our SDK
      const { sessionId, serviceCode, phoneNumber, text } = req.body;
 
@@ -60,6 +63,11 @@ app.post('/', (req, res) => {
      // DONE!!!
     })
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+    
+    app.use('/.netlify/functions/server', router);  // path must route to lambda
+    app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../public/index.html')));
+    
+    
+    module.exports = app;
+    module.exports.handler = serverless(app);
+    
