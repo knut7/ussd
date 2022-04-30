@@ -1,0 +1,14 @@
+{
+  "name": "ussd-api",
+  "version": "1.0.0",
+  "description": "ussd",
+  "main": "index.js",
+  "author": "Marcio Zebedeu",
+  "license": "MIT",
+  "dependencies": {
+    "africastalking": "^0.5.5",
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.1"
+  }
+}
